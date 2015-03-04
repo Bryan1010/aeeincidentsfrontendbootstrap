@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>AEE - Incidents</title>
+    <link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <script type="text/x-handlebars" id="application">
+        {{outlet}}
+    </script>
+
+    <script type="text/x-handlebars" id="loading">
+        <div class="loading general-loading-size"></div>
+    </script>
+
+    <!-- Index -->
+    <script type="text/x-handlebars" id="index">
+        <div id="home" class="home" >
+            <div class="large-12 medium-12 columns">
+                <div class="large-offset-4 medium-12 large-4 columns">
+                    <img src="img/aee-down.png" alt="">
+                </div>
+            </div>
+            <div class="large-12 medium-12 columns">
+                <div class="large-12 columns">
+                    <div class="large-offset-4 medium-12 large-4 columns text-center">
+                        <p>
+                            This "version" of AEE Incidents started with the idea of letting the people of Puerto Rico know about the averias in Puerto Rico and doing it in a pretty/user friendly way. Hope you enjoy!
+                        </p>
+                    </div>
+                </div>
+                <div class="large-12 columns">
+                    <div class="large-offset-4 large-4 columns">
+                        {{#link-to 'breakdowns.view'}}
+                            <button class="button expand home-button">See Incidents</button>
+                        {{/link-to}}
+                    </div>
+                </div>
+            </div>
+            <div class="large-12 medium-12 hide-for-medium columns">
+                <footer>
+                    <div class="text-right footer-information">
+                        <p>
+                            <a href="https://github.com/ens-labs">
+                                <img class="img-circle img-small" src="http://www.gravatar.com/avatar/53cee157c466bd37b8c75173611cadba.jpg?s=145"> 
+                            </a>
+                            <a href="https://github.com/eluciano11">
+                                <img class="img-circle img-small" src="https://www.gravatar.com/avatar/472f9c9bd76dc1a47ad8b38a0b3b49c0?d=identicon&s=145"> 
+                            </a>
+                            <a href="https://github.com/Code4PuertoRico">
+                                <img class="img-small" src="img/code4pr.svg">
+                            </a>
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </script>
+
+    <!-- Breakdowns -->
+    <script type="text/x-handlebars" id="breakdowns">
+        <div id="dynamic-resize" class="large-3 medium-12 columns side-color">
+            {{#link-to 'breakdowns.view'}}
+                <div class="hide-for-medium large-12 medium-12 columns">
+                    <img id="imagen" src="img/aee.png" alt=""> 
+                    </br>            
+                </div>
+            {{/link-to}}
+            {{#link-to 'breakdowns.report' class="button expand home-button medium-12 hidden show-for-medium"}}
+                Report Breakdown
+            {{/link-to}}
+            
+            <div class="large-12 medium-12 columns breakdowns-list-container">
+
+                <ul  id="pueblo-list" class="side-nav side-color breakdowns-list">
+                    {{#link-to 'breakdowns.report' class="button expand home-button hide-for-medium"  style="margin-right: 5px"}}
+                        Report Breakdown
+                    {{/link-to}}
+
+                    {{#each data in controller}}
+                    <li class="breakdowns-list-item">
+                        <a {{action 'highlightMap' data.Pueblo}} class="breakdowns-list-item-link">
+                            {{data.Pueblo}}
+                            <span class="white label right">
+                                {{[data.Cantidad de averias]}}
+                            </span>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+        <div class="large-9 columns breakdown-details">
+            {{outlet}}
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="breakdowns/loading">
+        <div class="loading"></div>
+    </script>
+
+    <script type="text/x-handlebars" id="breakdowns/report">
+        <div class="large-12 columns">
+            <div class="breakdown-form">
+                <div class="breakdown-content">
+                    <h1>Report a Breakdown</h1>
+                    <p>The breakdown that you report will be sent to the AEE Twitter account 
+                        (
+                            <a href="https://twitter.com/AEEONLINE" target="blank">
+                                @AEEONLINE
+                            </a>
+                        ).
+                    </p>
+                    <form action="/queja" method="post" role="form">
+                        <input type="text" name="town" placeholder="Town"/>
+                        <input type="text" name="area" placeholder="Area"/>
+                        <button type="submit" class="button expand submit-button">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script type="text/x-handlebars" id="breakdowns/view">
+        <div id="show-map" class="hide-for-medium"></div>
+        {{outlet}}
+    </script>
+
+    <script type="text/x-handlebars" id="breakdowns/view/loading">
+        <div class="loading specific-loading-size"></div>
+    </script>
+
+    <script type="text/x-handlebars" id="breakdowns/view/specific">
+        {{outlet}}
+        <div id="information" class="large-12 columns breakdowns-information">
+            {{#each data in controller}}
+            <h1 style="color: #fff;">{{data.Pueblo}}</h1>
+            <hr/>
+            <ul>
+                {{#each information in data.Averias}}
+                    <li class="large-4 columns breakdown-detail-space">
+                        Area: {{information.Area}}
+                        <br/>
+                        Status: {{information.Status}}
+                        <br/>
+                        Last Update: {{[information.Last Update]}}
+                    </li>
+                {{/each}} 
+            </ul>
+            {{/each}}
+        </div>
+    </script>
+
+    <script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
+    <script src="js/libs/handlebars-1.1.2.js"></script>
+    <script src="js/libs/ember-1.7.0.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/libs/map.js"></script>
+    <!-- This is for when the page is resizing-->
+<!--    <script src="js/libs/dynamic-list.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            ele = document.getElementById('home');
+            var heighty = $(window).height();;
+            ele.style.height = heighty + 'px';
+        });
+    </script> -->
+</body>
+
+</html>
