@@ -26,14 +26,14 @@
     <script type="text/x-handlebars" id="index">
         <div id="home" class="home">
             <div class="col-xs-12">
-                <div class="col-md-offset-4 col-xs-12 col-lg-4">
+                <div class="col-lg-offset-4 col-xs-12 col-lg-4">
                     <img class="img-responsive" src="img/aee-down.png" alt="">
                 </div>
             </div>
             <div class="col-xs-12">
 <!--
-                <div class="col-xs-12 columns">
-                    <div class="col-lg-offset-4 col-md-12 col-lg-4 columns text-center">
+                <div class="col-xs-12">
+                    <div class="col-lg-offset-4 col-xs-12 col-lg-4 columns text-center">
                         <p>
                             This "version" of AEE Incidents started with the idea of letting the people of Puerto Rico know about the averias in Puerto Rico and doing it in a pretty/user friendly way. Hope you enjoy!
                         </p>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 hidden-md columns">
+            <div class="col-xs-12 hidden-lg columns">
                 <footer>
                     <div class="text-right footer-information footer navbar-fixed-bottom">
                         <p>
@@ -59,7 +59,7 @@
                                 <img class="img-circle img-small" src="https://www.gravatar.com/avatar/472f9c9bd76dc1a47ad8b38a0b3b49c0?d=identicon&s=145"> 
                             </a>
                             <a href="https://github.com/Code4PuertoRico">
-                                <img class="img-small" src="img/code4pr.svg">
+                                <img class="img-small img-circle" src="img/code4pr.svg">
                             </a>
                         </p>
                     </div>
@@ -70,21 +70,21 @@
 
     <!-- Breakdowns -->
     <script type="text/x-handlebars" id="breakdowns">
-        <div id="dynamic-resize" class="large-3 medium-12 columns side-color">
+        <div id="dynamic-resize" class="col-lg-3 col-xs-12 side-color">
             {{#link-to 'breakdowns.view'}}
-                <div class="hide-for-medium large-12 medium-12 columns">
+                <div class="hidden-lg col-xs-12">
                     <img id="imagen" src="img/aee.png" alt=""> 
                     </br>            
                 </div>
             {{/link-to}}
-            {{#link-to 'breakdowns.report' class="button expand home-button medium-12 hidden show-for-medium"}}
+            {{#link-to 'breakdowns.report' class="button expand home-button medium-12 hidden visible-lg"}}
                 Report Breakdown
             {{/link-to}}
             
-            <div class="large-12 medium-12 columns breakdowns-list-container">
+            <div class="lcol-xs-12 breakdowns-list-container">
 
                 <ul  id="pueblo-list" class="side-nav side-color breakdowns-list">
-                    {{#link-to 'breakdowns.report' class="button expand home-button hide-for-medium"  style="margin-right: 5px"}}
+                    {{#link-to 'breakdowns.report' class="btn expand home-button hidden-lg"  style="margin-right: 5px"}}
                         Report Breakdown
                     {{/link-to}}
 
