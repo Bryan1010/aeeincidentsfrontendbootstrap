@@ -25,10 +25,12 @@ ul{
 .home-button, .white {
     background-color: white;
     color: #00BCD4;
+    margin-top: 25%;
 }
 .home-button:hover, .home-button:active{
     background-color:rgba(255, 255, 255, 0.86); 
     color: #00BCD4;
+    text-decoration: none;
 }
 .breakdowns-list-container {
     overflow: hidden; 
